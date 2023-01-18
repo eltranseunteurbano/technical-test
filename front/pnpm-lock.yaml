@@ -15,7 +15,6 @@ specifiers:
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-react: ^7.31.1
   eslint-plugin-react-hooks: ^4.6.0
-  husky: ^8.0.1
   prettier: ^2.7.1
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -41,7 +40,6 @@ devDependencies:
   eslint-plugin-prettier: 4.2.1_cn4lalcyadplruoxa5mhp7j3dq
   eslint-plugin-react: 7.32.1_eslint@8.32.0
   eslint-plugin-react-hooks: 4.6.0_eslint@8.32.0
-  husky: 8.0.3
   prettier: 2.8.3
   typescript: 4.9.4
   vite: 3.2.5
@@ -1796,12 +1794,6 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
-    dev: true
-
-  /husky/8.0.3:
-    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
-    engines: {node: '>=14'}
-    hasBin: true
     dev: true
 
   /ignore/5.2.4:
