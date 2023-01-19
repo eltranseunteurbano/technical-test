@@ -7,6 +7,10 @@
     @apply m-0 p-0;
   }
 
+  body {
+    @apply bg-gray-50;
+  }
+
   dl {
     @apply font-normal;
   }
@@ -17,5 +21,38 @@
 
   dd {
     @apply truncate text-gray-500;
+  }
+
+  label:has([type='text']),
+  label:has([type='email']),
+  label:has([type='url']),
+  label:has([type='password']),
+  label:has([type='number']),
+  label:has([type='date']),
+  label:has([type='datetime-local']),
+  label:has([type='month']),
+  label:has([type='search']),
+  label:has([type='tel']),
+  label:has([type='time']),
+  label:has([type='week']),
+  label:has(select) {
+    @apply relative;
+  }
+
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select {
+    @apply border-gray-300 hover:border-gray-400 rounded shadow-sm my-1 focus:border-indigo-500 focus:ring-indigo-500 focus:border-transparent  cursor-pointer;
   }
 }

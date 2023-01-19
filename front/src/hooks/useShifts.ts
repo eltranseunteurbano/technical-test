@@ -61,6 +61,7 @@ const useGetShifts = () => {
     isNursesError,
     data: shifts,
     error: shiftError || nurseError,
+    nurses: nursesData,
   };
 };
 
