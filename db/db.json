@@ -1,4 +1,111 @@
 {
-  "shifts": [],
-  "nurses": []
+  "shifts": [
+    {
+      "id": "0",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "2",
+      "qualification": "LPN"
+    },
+    {
+      "id": "1",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "1",
+      "qualification": "RN"
+    },
+    {
+      "id": "2",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "2",
+      "qualification": "CNA"
+    },
+    {
+      "id": "3",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "0",
+      "qualification": "LPN"
+    },
+    {
+      "id": "4",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "0",
+      "qualification": "LPN"
+    },
+    {
+      "id": "5",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "1",
+      "qualification": "LPN"
+    },
+    {
+      "id": "6",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "2",
+      "qualification": "LPN"
+    },
+    {
+      "id": "7",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "1",
+      "qualification": "RN"
+    },
+    {
+      "id": "8",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "2",
+      "qualification": "CNA"
+    },
+    {
+      "id": "9",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "0",
+      "qualification": "LPN"
+    },
+    {
+      "id": "10",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "0",
+      "qualification": "LPN"
+    },
+    {
+      "id": "11",
+      "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
+      "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
+      "nurseId": "1",
+      "qualification": "LPN"
+    }
+  ],
+  "nurses": [
+    {
+      "id": "0",
+      "firstName": "Mitchell",
+      "lastName": "Bagnall",
+      "username": "username",
+      "qualification": "RN"
+    },
+    {
+      "id": "1",
+      "firstName": "Nichols",
+      "lastName": "Fellini",
+      "username": "username",
+      "qualification": "RN"
+    },
+    {
+      "id": "2",
+      "firstName": "Fredd",
+      "lastName": "Trimp",
+      "username": "username",
+      "qualification": "LPN"
+    }
+  ]
 }
