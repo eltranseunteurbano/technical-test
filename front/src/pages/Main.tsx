@@ -1,4 +1,4 @@
-import useGetShifts from '../api/useGetShifts'
+import useGetShifts from '../hooks/useGetShifts'
 import ShiftsTable from '../UI/organisms/ShiftsTable'
 
 const Main = () => {
