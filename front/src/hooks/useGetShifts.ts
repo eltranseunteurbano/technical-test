@@ -12,6 +12,7 @@ const useGetShifts = () => {
     isFetching: isShiftsFetching,
     isLoading: isShiftsLoading,
     isSuccess: isShiftsSuccess,
+    error: shiftError,
   } = useQuery<QueryShift[], Error>('shifts', getShiftsQuery);
 
   const nurseQueries: UseQueryResult[] = useQueries(
@@ -25,6 +26,7 @@ const useGetShifts = () => {
   const isNursesFetching = nurseQueries.every((item) => item.isFetching);
   const isNursesLoading = nurseQueries.every((item) => item.isLoading);
   const isNursesSuccess = nurseQueries.every((item) => item.isSuccess);
+  const nurseError = nurseQueries.find((item) => item.error)?.error as Error;
   const nursesData = nurseQueries.map((item) => item.data) as Nurse[];
 
   const transformShiftsWithNurseData = () => {
@@ -58,6 +60,7 @@ const useGetShifts = () => {
     isShiftsError,
     isNursesError,
     data: shifts,
+    error: shiftError || nurseError,
   };
 };
 
