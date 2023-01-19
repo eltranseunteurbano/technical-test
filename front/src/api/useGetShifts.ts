@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
+import axios from 'axios'
 import { Nurse } from '../types/Nurse'
 import type { QueryShift, Shift } from '../types/Shift'
 
-const nursesQuery = () => fetch('http://localhost:3000/nurses').then((res) => res.json())
-const shiftsQuery = () => fetch('http://localhost:3000/shifts').then((res) => res.json())
+const nursesQuery = () => axios.get('/nurses').then((res) => res.data)
+const shiftsQuery = () => axios.get('/shifts').then((res) => res.data)
 
 const useGetShifts = () => {
 
@@ -31,7 +32,13 @@ const useGetShifts = () => {
     if (isShiftsSuccess && isNursesSuccess) {
       const formattedData = shiftsData.map((shift) => {
         const nurse = nursesData.find(({ id }) => id === shift.nurseId)
-        return { id: shift.id, qualification: shift.qualification, nurse: nurse || null, startDate: new Date(shift.startDate), endDate: new Date(shift.endDate) }
+        return {
+          id: shift.id,
+          qualification: shift.qualification,
+          startDate: new Date(shift.startDate),
+          endDate: new Date(shift.endDate),
+          nurse: nurse || null,
+        }
       }, []) as Shift[]
 
       setData(formattedData)
