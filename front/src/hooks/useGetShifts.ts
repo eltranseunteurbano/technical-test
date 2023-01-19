@@ -15,7 +15,7 @@ const useGetShifts = () => {
   } = useQuery<QueryShift[], Error>('shifts', getShiftsQuery)
 
   const nurseQueries:UseQueryResult[] = useQueries(
-    (shiftsData || []).map((shift) => ({
+    (shiftsData?.filter((item) => item.nurseId) || []).map((shift) => ({
       queryKey: ['nurse', shift.nurseId],
       queryFn: () => getNurseByIdQuery(shift.nurseId),
     }))
