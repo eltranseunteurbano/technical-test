@@ -1,3 +1,3 @@
-type Qualification = 'CNA' | 'LPN' | 'RN'
+type Qualification = 'CNA' | 'LPN' | 'RN';
 
-export default Qualification
+export default Qualification;

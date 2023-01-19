@@ -16,6 +16,6 @@
   }
 
   dd {
-   @apply truncate text-gray-500;
+    @apply truncate text-gray-500;
   }
 }

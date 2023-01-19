@@ -1,5 +1,5 @@
-import { format } from 'date-fns'
+import { format } from 'date-fns';
 
-const getShiftDate = (date: Date): string => format(date, 'dd/MM/yyyy hh:mm:ss aa')
+const getShiftDate = (date: Date): string => format(date, 'dd/MM/yyyy hh:mm:ss aa');
 
-export default getShiftDate
+export default getShiftDate;
