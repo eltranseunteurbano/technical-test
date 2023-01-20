@@ -1,12 +1,15 @@
 import cn from 'classnames';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useGetNurses } from '../../hooks/useNurses';
 import { useGetShifts, useMutateShift } from '../../hooks/useShifts';
 import { Nurse } from '../../types/Nurse';
+import { RuleErrors } from '../../types/RuleErrors';
 import { Shift } from '../../types/Shift';
 import getShiftDate from '../../utils/getShiftDate';
+import { isNurseQualifiedToSfhit } from '../../utils/shiftRules';
+import Alert from '../atoms/Alert';
 import Button from '../atoms/Button';
 import InputGroup from '../atoms/form/InputGroup';
 import Select from '../atoms/rhf/Select';
@@ -32,6 +35,7 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
   const { mutate: updateShift, isLoading: isMutationLoading } = useMutateShift();
   const { data: shifts, isLoading: isShiftsLoading } = useGetShifts();
   const { data: nurses, isLoading: isNursesLoading } = useGetNurses();
+  const [rules, setRules] = useState<RuleErrors[]>([]);
 
   const isLoading = isNursesLoading || isShiftsLoading;
 
@@ -41,8 +45,27 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
   const nurseValue = watch('nurse');
 
   const onSubmit: SubmitHandler<FormValuesType> = (data) => {
-    updateShift({ id: data.shift, data: { nurseId: data.nurse } });
-    if (cb) cb();
+    const nurse = nurses?.find((n) => n.id === data.nurse);
+    const shift = shifts?.find((s) => s.id === data.shift);
+    if (nurse && shift) {
+      if (
+        isNurseQualifiedToSfhit({
+          shiftQualification: shift.qualification,
+          nurseQualification: nurse.qualification,
+        })
+      ) {
+        !rules.includes('nurseUnqualified')
+          ? setRules((prev) => [...prev, 'nurseUnqualified'])
+          : null;
+      } else {
+        setRules((prev) => prev.filter((rule) => rule !== 'nurseUnqualified'));
+      }
+
+      // updateShift({ id: data.shift, data: { nurseId: data.nurse } });
+      // if (cb) cb();
+    } else {
+      console.log(nurse, shift);
+    }
   };
 
   useEffect(() => {
@@ -87,6 +110,10 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
           />
         </InputGroup>
       )}
+
+      {rules.map((rule) => (
+        <Alert type="warning" rule={rule} key={rule} />
+      ))}
 
       <Button className="w-fit" type="submit" disabled={!shiftValue || !nurseValue}>
         {isMutationLoading ? 'Saving' : 'Save assignment'}
