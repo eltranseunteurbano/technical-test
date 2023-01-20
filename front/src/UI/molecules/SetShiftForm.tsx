@@ -8,7 +8,10 @@ import { Nurse } from '../../types/Nurse';
 import { RuleErrors } from '../../types/RuleErrors';
 import { Shift } from '../../types/Shift';
 import getShiftDate from '../../utils/getShiftDate';
-import { isNurseQualifiedToSfhit } from '../../utils/shiftRules';
+import {
+  isNurseQualifiedToSfhit,
+  isTheNurseBussy as isTheNurseBussyRule,
+} from '../../utils/shiftRules';
 import Alert from '../atoms/Alert';
 import Button from '../atoms/Button';
 import InputGroup from '../atoms/form/InputGroup';
@@ -47,25 +50,47 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
   const onSubmit: SubmitHandler<FormValuesType> = (data) => {
     const nurse = nurses?.find((n) => n.id === data.nurse);
     const shift = shifts?.find((s) => s.id === data.shift);
-    if (nurse && shift) {
-      if (
-        isNurseQualifiedToSfhit({
-          shiftQualification: shift.qualification,
-          nurseQualification: nurse.qualification,
-        })
-      ) {
-        !rules.includes('nurseUnqualified')
-          ? setRules((prev) => [...prev, 'nurseUnqualified'])
-          : null;
-      } else {
-        setRules((prev) => prev.filter((rule) => rule !== 'nurseUnqualified'));
-      }
 
-      // updateShift({ id: data.shift, data: { nurseId: data.nurse } });
-      // if (cb) cb();
+    if (!nurse || !shift) return;
+    if (shift.nurse?.id === data.nurse) return;
+
+    const isNurseQualified = isNurseQualifiedToSfhit({
+      shiftQualification: shift.qualification,
+      nurseQualification: nurse.qualification,
+    });
+
+    if (isNurseQualified) {
+      !rules.includes('nurseUnqualified')
+        ? setRules((prev) => [...prev, 'nurseUnqualified'])
+        : null;
+      return;
     } else {
-      console.log(nurse, shift);
+      setRules((prev) => prev.filter((rule) => rule !== 'nurseUnqualified'));
     }
+
+    const nurseShifts = shifts.filter(
+      (shift) => shift.nurse?.id === data.nurse && shift.id !== data.shift,
+    );
+
+    const isTheNurseBussy = nurseShifts.some((s) =>
+      isTheNurseBussyRule({
+        nurseStarts: s.startDate,
+        nurseEnds: s.endDate,
+        shiftStarts: shift.startDate,
+        shiftEnds: shift.endDate,
+      }),
+    );
+
+    if (isTheNurseBussy) {
+      console.log('esta ocupada');
+      !rules.includes('bussyNurse') ? setRules((prev) => [...prev, 'bussyNurse']) : null;
+      return;
+    } else {
+      setRules((prev) => prev.filter((rule) => rule !== 'bussyNurse'));
+    }
+
+    updateShift({ id: data.shift, data: { nurseId: data.nurse } });
+    if (cb) cb();
   };
 
   useEffect(() => {
