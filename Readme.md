@@ -2,7 +2,7 @@
 
 This is the repository for the frontend technical test of the full stack developer job offer.
 
-In this repository, you can find two folders: [Backend](http://https://github.com/eltranseunteurbano/technical-test/tree/main/back "Backend") and [frontend](http://https://github.com/eltranseunteurbano/technical-test/tree/main/front "frontend").
+In this repository, you can find two folders: [Backend](https://github.com/eltranseunteurbano/technical-test/tree/main/back "Backend") and [frontend]https://github.com/eltranseunteurbano/technical-test/tree/main/front "frontend").
 
 ## Frontend
 For this challenge, I decided to make a Frontend app made with:
