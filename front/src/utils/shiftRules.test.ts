@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { RuleMessage } from '../types/RuleErrors';
-import { isNurseQualifiedToSfhit } from './shiftRules';
+import { isNurseQualifiedToSfhit, isTheNurseBussy } from './shiftRules';
 
 describe('Get shift rules', () => {
   it('CNA assigned to CNA shift', () => {
@@ -90,5 +90,49 @@ describe('Get the rule message', () => {
 
   it('Wrong bussyNurse rule message', () => {
     expect(RuleMessage['bussyNurse']).not.be.equal('');
+  });
+});
+
+describe('Is the nurse Bussy', () => {
+  const nurseStarts = new Date(2023, 1, 15, 8, 0, 0);
+  const nurseEnds = new Date(2023, 1, 15, 10, 0, 0);
+
+  it("The shift is before nurse's shift", () => {
+    const shiftStarts = new Date(2023, 1, 15, 4, 0, 0);
+    const shiftEnds = new Date(2023, 1, 15, 5, 15, 0, 0);
+    expect(isTheNurseBussy({ shiftStarts, shiftEnds, nurseStarts, nurseEnds })).to.be
+      .null;
+  });
+
+  it("The shift is after nurse's shift", () => {
+    const shiftStarts = new Date(2023, 1, 15, 13, 0, 0);
+    const shiftEnds = new Date(2023, 1, 15, 15, 0, 0, 0);
+    expect(isTheNurseBussy({ shiftStarts, shiftEnds, nurseStarts, nurseEnds })).to.be
+      .null;
+  });
+
+  it("The start of the shift is overlapping on nurse's shift", () => {
+    const shiftStarts = new Date(2023, 1, 15, 8, 25, 0);
+    const shiftEnds = new Date(2023, 1, 15, 8, 30, 0);
+    expect(
+      isTheNurseBussy({ shiftStarts, shiftEnds, nurseStarts, nurseEnds }),
+    ).to.be.equal(RuleMessage.bussyNurse);
+  });
+
+  it("The end of the shift is overlapping on nurse's shift", () => {
+    const shiftStarts = new Date(2023, 1, 15, 6, 0, 0);
+    const shiftEnds = new Date(2023, 1, 15, 9, 0, 0);
+    expect(
+      isTheNurseBussy({ shiftStarts, shiftEnds, nurseStarts, nurseEnds }),
+    ).to.be.equal(RuleMessage.bussyNurse);
+  });
+
+  it("The shift is overlapping on nurse's shift", () => {
+    const shiftStarts = new Date(2023, 1, 15, 7, 0, 0);
+    const shiftEnds = new Date(2023, 1, 15, 11, 0, 0);
+
+    expect(
+      isTheNurseBussy({ shiftStarts, shiftEnds, nurseStarts, nurseEnds }),
+    ).to.be.equal(RuleMessage.bussyNurse);
   });
 });
