@@ -4,7 +4,7 @@
       "id": "0",
       "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
       "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
-      "nurseId": "2",
+      "nurseId": "0",
       "qualification": "LPN"
     },
     {
@@ -18,7 +18,7 @@
       "id": "2",
       "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
       "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
-      "nurseId": "2",
+      "nurseId": "1",
       "qualification": "CNA"
     },
     {
@@ -74,13 +74,14 @@
       "id": "10",
       "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
       "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
-      "qualification": "LPN"
+      "qualification": "LPN",
+      "nurseId": "0"
     },
     {
       "id": "11",
       "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
       "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
-      "nurseId": "1",
+      "nurseId": "2",
       "qualification": "LPN"
     }
   ],

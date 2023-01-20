@@ -2,7 +2,8 @@ import cn from 'classnames';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import useNurses from '../../hooks/useNurses';
+import { useGetNurses } from '../../hooks/useNurses';
+import { useGetShifts, useMutateShift } from '../../hooks/useShifts';
 import { Nurse } from '../../types/Nurse';
 import { Shift } from '../../types/Shift';
 import getShiftDate from '../../utils/getShiftDate';
@@ -27,163 +28,11 @@ const defaultValues: FormValuesType = {
 const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
   const { className } = props;
 
-  const { getNurses } = useNurses();
-  const { data: nurses, isLoading: isNurseLoading } = getNurses;
-  const shifts: Shift[] = [
-    {
-      id: '0',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '2',
-        firstName: 'Fredd',
-        lastName: 'Trimp',
-        username: 'username',
-        qualification: 'LPN',
-      },
-    },
-    {
-      id: '1',
-      qualification: 'RN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '1',
-        firstName: 'Nichols',
-        lastName: 'Fellini',
-        username: 'username',
-        qualification: 'RN',
-      },
-    },
-    {
-      id: '2',
-      qualification: 'CNA',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '2',
-        firstName: 'Fredd',
-        lastName: 'Trimp',
-        username: 'username',
-        qualification: 'LPN',
-      },
-    },
-    {
-      id: '3',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '0',
-        firstName: 'Mitchell',
-        lastName: 'Bagnall',
-        username: 'username',
-        qualification: 'RN',
-      },
-    },
-    {
-      id: '4',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '0',
-        firstName: 'Mitchell',
-        lastName: 'Bagnall',
-        username: 'username',
-        qualification: 'RN',
-      },
-    },
-    {
-      id: '5',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '1',
-        firstName: 'Nichols',
-        lastName: 'Fellini',
-        username: 'username',
-        qualification: 'RN',
-      },
-    },
-    {
-      id: '6',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '2',
-        firstName: 'Fredd',
-        lastName: 'Trimp',
-        username: 'username',
-        qualification: 'LPN',
-      },
-    },
-    {
-      id: '7',
-      qualification: 'RN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '1',
-        firstName: 'Nichols',
-        lastName: 'Fellini',
-        username: 'username',
-        qualification: 'RN',
-      },
-    },
-    {
-      id: '8',
-      qualification: 'CNA',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '2',
-        firstName: 'Fredd',
-        lastName: 'Trimp',
-        username: 'username',
-        qualification: 'LPN',
-      },
-    },
-    {
-      id: '9',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '0',
-        firstName: 'Mitchell',
-        lastName: 'Bagnall',
-        username: 'username',
-        qualification: 'RN',
-      },
-    },
-    {
-      id: '10',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: null,
-    },
-    {
-      id: '11',
-      qualification: 'LPN',
-      startDate: new Date('Wed, 18 Jan 2023 23:44:16 GMT'),
-      endDate: new Date('Wed, 25 Jan 2023 23:44:16 GMT'),
-      nurse: {
-        id: '1',
-        firstName: 'Nichols',
-        lastName: 'Fellini',
-        username: 'username',
-        qualification: 'RN',
-      },
-    },
-  ];
-  // const { isLoading: isShiftsLoading } = useGetShifts();
+  const { mutate: updateShift, isLoading: isMutationLoading } = useMutateShift();
+  const { data: shifts, isLoading: isShiftsLoading } = useGetShifts();
+  const { data: nurses, isLoading: isNursesLoading } = useGetNurses();
 
-  const isLoading = isNurseLoading;
+  const isLoading = isNursesLoading || isShiftsLoading;
 
   const rhForm = useForm<FormValuesType>({ defaultValues });
   const { handleSubmit, watch, setValue } = rhForm;
@@ -191,13 +40,13 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
   const nurseValue = watch('nurse');
 
   const onSubmit: SubmitHandler<FormValuesType> = (data) => {
-    console.log(data);
+    updateShift({ id: data.shift, data: { nurseId: data.nurse } });
   };
 
   useEffect(() => {
-    if (shiftValue) {
+    if (shiftValue && shifts) {
       const selectedNurse = shifts.find((shift) => shift.id === shiftValue);
-      setValue('nurse', selectedNurse?.nurse?.id || '');
+      if (selectedNurse?.nurse?.id) setValue('nurse', selectedNurse.nurse.id);
     }
   }, [shiftValue]);
 
@@ -208,11 +57,9 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
           name="shift"
           rhForm={rhForm}
           placeholder="Select a shift"
-          options={shifts.map((shift) => ({
-            name: `Shift ${shift.id}: ${getShiftDate(shift.startDate)} - ${getShiftDate(
-              shift.endDate,
-            )}`,
-            value: shift.id,
+          options={(shifts || []).map(({ id, startDate, endDate }) => ({
+            name: `Shift ${id}: ${getShiftDate(startDate)} - ${getShiftDate(endDate)}`,
+            value: id,
           }))}
         />
       </InputGroup>
@@ -234,7 +81,7 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
       )}
 
       <Button className="w-fit" type="submit" disabled={!shiftValue || !nurseValue}>
-        Save assignment
+        {isMutationLoading ? 'Saving' : 'Save assignment'}
       </Button>
     </form>
   );

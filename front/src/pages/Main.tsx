@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import useShifts from '../hooks/useShifts';
+import { useGetShifts } from '../hooks/useShifts';
 import Button from '../UI/atoms/Button';
 import SetShiftAssignmentModal from '../UI/organisms/SetShiftAssignmentModal';
 import ShiftsTable from '../UI/organisms/ShiftsTable';
 
 const Main = () => {
-  const { isLoading, isError, data, error } = useShifts();
   const [openModal, setOpenModal] = useState(true);
+  const { data, isLoading, isError, error } = useGetShifts();
 
   if (isLoading && !isError) return <p>Loading...</p>;
   if (isError && error) return <p>Sorry. {error?.message}</p>;

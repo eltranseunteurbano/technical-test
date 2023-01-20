@@ -3,11 +3,7 @@ import { useQuery } from 'react-query';
 import { getNursesQuery } from '../api';
 import { Nurse } from '../types/Nurse';
 
-const useGetNurses = () => {
-  const getNurses = useQuery<Nurse[], Error>('nurses', getNursesQuery);
+const key = 'nurses';
+const useGetNurses = () => useQuery<Nurse[], Error>(key, getNursesQuery);
 
-  return {
-    getNurses,
-  };
-};
-export default useGetNurses;
+export { useGetNurses };
