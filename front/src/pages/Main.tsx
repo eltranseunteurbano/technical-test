@@ -6,7 +6,7 @@ import SetShiftAssignmentModal from '../UI/organisms/SetShiftAssignmentModal';
 import ShiftsTable from '../UI/organisms/ShiftsTable';
 
 const Main = () => {
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const { data, isLoading, isError, error } = useGetShifts();
 
   if (isLoading && !isError) return <p>Loading...</p>;

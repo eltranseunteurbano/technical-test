@@ -4,21 +4,21 @@
       "id": "0",
       "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
       "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
-      "nurseId": "0",
+      "nurseId": "2",
       "qualification": "LPN"
     },
     {
       "id": "1",
       "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
       "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
-      "nurseId": "1",
+      "nurseId": "0",
       "qualification": "RN"
     },
     {
       "id": "2",
       "startDate": "Wed, 18 Jan 2023 23:44:16 GMT",
       "endDate": "Wed, 25 Jan 2023 23:44:16 GMT",
-      "nurseId": "1",
+      "nurseId": "0",
       "qualification": "CNA"
     },
     {

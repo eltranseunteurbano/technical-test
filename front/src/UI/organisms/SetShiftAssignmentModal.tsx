@@ -17,7 +17,7 @@ const SetShiftAssignmentModal: React.FC<ISetShiftAssignmentModal> = (props) => {
           Set Shift Assignment
         </h2>
       </header>
-      <SetShiftForm />
+      <SetShiftForm cb={onClose} />
     </Dialog>
   );
 };

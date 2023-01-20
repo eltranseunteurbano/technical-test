@@ -10,15 +10,16 @@ interface ISelect {
   options: Option[];
   rhForm: UseFormReturn<any, any>;
   name: string;
+  disabled?: boolean;
 }
 
 const Select: React.FC<ISelect> = (props) => {
-  const { placeholder, options, rhForm, name } = props;
+  const { placeholder, options, rhForm, name, disabled } = props;
 
   const { register } = rhForm;
 
   return (
-    <select className="w-full" {...register(name)}>
+    <select className="w-full" {...register(name)} disabled={disabled}>
       <>
         <option disabled value="">
           {placeholder}

@@ -13,6 +13,7 @@ import Select from '../atoms/rhf/Select';
 
 interface ISetShiftForm {
   className?: string;
+  cb?: () => void;
 }
 
 type FormValuesType = {
@@ -26,7 +27,7 @@ const defaultValues: FormValuesType = {
 };
 
 const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
-  const { className } = props;
+  const { className, cb } = props;
 
   const { mutate: updateShift, isLoading: isMutationLoading } = useMutateShift();
   const { data: shifts, isLoading: isShiftsLoading } = useGetShifts();
@@ -41,6 +42,7 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
 
   const onSubmit: SubmitHandler<FormValuesType> = (data) => {
     updateShift({ id: data.shift, data: { nurseId: data.nurse } });
+    if (cb) cb();
   };
 
   useEffect(() => {
@@ -53,15 +55,20 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
   return (
     <form className={cn('grid gap-4', className)} onSubmit={handleSubmit(onSubmit)}>
       <InputGroup label="Shift">
-        <Select
-          name="shift"
-          rhForm={rhForm}
-          placeholder="Select a shift"
-          options={(shifts || []).map(({ id, startDate, endDate }) => ({
-            name: `Shift ${id}: ${getShiftDate(startDate)} - ${getShiftDate(endDate)}`,
-            value: id,
-          }))}
-        />
+        {isLoading ? (
+          <div className="w-full h-12 bg-gray-300 animate-pulse rounded-md" />
+        ) : (
+          <Select
+            name="shift"
+            rhForm={rhForm}
+            placeholder="Select a shift"
+            options={(shifts || []).map(({ id, startDate, endDate }) => ({
+              name: `Shift ${id}: ${getShiftDate(startDate)} - ${getShiftDate(endDate)}`,
+              value: id,
+            }))}
+            disabled={isMutationLoading}
+          />
+        )}
       </InputGroup>
 
       {isLoading ? (
@@ -76,6 +83,7 @@ const SetShiftForm: React.FC<ISetShiftForm> = (props) => {
               name: `${nurse.firstName} ${nurse.lastName}, ${nurse.qualification}`,
               value: nurse.id,
             }))}
+            disabled={isMutationLoading}
           />
         </InputGroup>
       )}
