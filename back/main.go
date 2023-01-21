@@ -10,129 +10,144 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var nurses = []Nurse {
+var nurses = []Nurse{
 	{
-		Id: "0",
-		FirstName: "Mitchell",
-		LastName: "Bagnall",
-		UserName: "username",
+		Id:            "0",
+		FirstName:     "Mitchell",
+		LastName:      "Bagnall",
+		UserName:      "username",
 		Qualification: "CNA",
-	},{
-		Id: "1",
-		FirstName: "Nichols",
-		LastName: "Fellini",
-		UserName: "username",
+	}, {
+		Id:            "1",
+		FirstName:     "Nichols",
+		LastName:      "Fellini",
+		UserName:      "username",
 		Qualification: "RN",
-	},{
-		Id: "2",
-		FirstName: "Fredd",
-		LastName: "Trimp",
-		UserName: "username",
+	}, {
+		Id:            "2",
+		FirstName:     "Fredd",
+		LastName:      "Trimp",
+		UserName:      "username",
 		Qualification: "LPN",
-	},{
-		Id: "3",
-		FirstName: "Jaime",
-		LastName: "Burbano",
-		UserName: "username",
+	}, {
+		Id:            "3",
+		FirstName:     "Jaime",
+		LastName:      "Burbano",
+		UserName:      "username",
+		Qualification: "CNA",
+	}, {
+		Id:            "4",
+		FirstName:     "Probando",
+		LastName:      "Prueba",
+		UserName:      "username",
 		Qualification: "CNA",
 	},
 }
 
-var shifts = []Shift {
+var shifts = []Shift{
 	{
-		Id: "0",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "3",
+		Id:            "0",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "",
 		Qualification: "LPN",
 	}, {
-		Id: "1",
-		StartDate: "Wed, 18 Jan 2023 8:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 12:44:16 GMT",
-		NurseId: "0",
+		Id:            "1",
+		StartDate:     "Wed, 18 Jan 2023 8:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 12:44:16 GMT",
+		NurseId:       "0",
 		Qualification: "RN",
 	}, {
-		Id: "2",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "0",
+		Id:            "2",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "0",
 		Qualification: "CNA",
 	}, {
-		Id: "3",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "0",
+		Id:            "3",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "0",
 		Qualification: "LPN",
 	}, {
-		Id: "4",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "0",
+		Id:            "4",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "0",
 		Qualification: "LPN",
 	}, {
-		Id: "5",
-		StartDate: "Wed, 18 Jan 2023 6:44:16 GMT",
-		EndDate: "Wed, 18 Jan 2023 7:44:16 GMT",
-		NurseId: "1",
-		Qualification: "LPN",
-	},	{
-		Id: "6",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "2",
+		Id:            "5",
+		StartDate:     "Wed, 18 Jan 2023 6:44:16 GMT",
+		EndDate:       "Wed, 18 Jan 2023 7:44:16 GMT",
+		NurseId:       "1",
 		Qualification: "LPN",
 	}, {
-		Id: "7",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "0",
+		Id:            "6",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "2",
+		Qualification: "LPN",
+	}, {
+		Id:            "7",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "0",
 		Qualification: "RN",
 	}, {
-		Id: "8",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "2",
+		Id:            "8",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "2",
 		Qualification: "CNA",
-	},	{
-		Id: "9",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "0",
+	}, {
+		Id:            "9",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "0",
 		Qualification: "LPN",
-	},	{
-		Id: "10",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
+	}, {
+		Id:            "10",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
 		Qualification: "LPN",
-		NurseId: "0",
-	},	{
-		Id: "11",
-		StartDate: "Wed, 18 Jan 2023 23:44:16 GMT",
-		EndDate: "Wed, 25 Jan 2023 23:44:16 GMT",
-		NurseId: "2",
+		NurseId:       "0",
+	}, {
+		Id:            "11",
+		StartDate:     "Wed, 18 Jan 2023 23:44:16 GMT",
+		EndDate:       "Wed, 25 Jan 2023 23:44:16 GMT",
+		NurseId:       "2",
 		Qualification: "LPN",
 	},
 }
 
-func enableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+func middlewareCors(next http.Handler) http.Handler {
+	return http.HandlerFunc(
+		func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+			w.Header().Set("Access-Control-Allow-Credentials", "true")
+			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, PATCH")
+			w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+			next.ServeHTTP(w, req)
+		})
+}
+
+func enableCORS(router *mux.Router) {
+	router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, req *http.Request) {}).Methods(http.MethodOptions)
+	router.Use(middlewareCors)
 }
 
 func getNurses(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(nurses)
 }
 
 func getNurse(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
 	vars := mux.Vars(r)
 	nurseId := vars["id"]
 
 	for _, nurse := range nurses {
 		if nurse.Id == nurseId {
-			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(nurse)
 			return
@@ -143,18 +158,15 @@ func getNurse(w http.ResponseWriter, r *http.Request) {
 }
 
 func getShifts(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(shifts)
 }
 
 func updateShift(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-
 	vars := mux.Vars(r)
 	shiftId := vars["id"]
 	var nurseId string
+	var updatedShift Shift
 
 	reqBody, reqBodyError := io.ReadAll(r.Body)
 
@@ -165,9 +177,16 @@ func updateShift(w http.ResponseWriter, r *http.Request) {
 
 	json.Unmarshal(reqBody, &nurseId)
 
-	for _, shift := range shifts {
+	for i, shift := range shifts {
 		if shift.Id == shiftId {
-			shift.NurseId = nurseId
+			// shifts = append(shifts[:i], shifts[i+1]...)
+
+			updatedShift.Id = shiftId
+			updatedShift.StartDate = shift.StartDate
+			updatedShift.EndDate = shift.EndDate
+			updatedShift.NurseId = nurseId
+			updatedShift.Qualification = shift.Qualification
+
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 			fmt.Fprintf(w, "Shift updated successfull")
@@ -180,7 +199,7 @@ func updateShift(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
-
+	enableCORS(router)
 	router.HandleFunc("/nurses", getNurses).Methods("GET")
 	router.HandleFunc("/nurse/{id}", getNurse).Methods("GET")
 
