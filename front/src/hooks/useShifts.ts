@@ -15,32 +15,48 @@ const useGetShifts = () => {
   } = useQuery<QueryShift[], Error>(key, getShiftsQuery);
 
   const finalShiftsResults = useQueries(
-    (shiftsResults || []).map((shiftQuery) => {
-      return {
-        queryKey: ['nurse', shiftQuery.nurseId],
-        queryFn: () => getNurseByIdQuery(shiftQuery.nurseId),
-        select: (data: Nurse): Shift => ({
-          id: shiftQuery.id,
-          startDate: new Date(shiftQuery.startDate),
-          endDate: new Date(shiftQuery.endDate),
-          nurse: data,
-          qualification: shiftQuery.qualification,
-        }),
-      };
-    }),
+    (shiftsResults || [])
+      .filter((shift) => shift.nurseId)
+      .map((shiftQuery) => {
+        return {
+          queryKey: ['nurse', shiftQuery.nurseId],
+          queryFn: () => getNurseByIdQuery(shiftQuery.nurseId),
+          select: (data: Nurse): Shift => ({
+            id: shiftQuery.id,
+            startDate: new Date(shiftQuery.startDate),
+            endDate: new Date(shiftQuery.endDate),
+            nurse: data,
+            qualification: shiftQuery.qualification,
+          }),
+        };
+      }),
   );
 
   const isShiftsLoading = finalShiftsResults.some((shift) => shift.isLoading);
   const isShiftsSuccess = finalShiftsResults.every((shift) => shift.isSuccess);
+
   const shifts = isShiftsSuccess
-    ? (finalShiftsResults.map((shift) => shift.data) as Shift[])
+    ? (shiftsResults || []).map((queryshift) => {
+        const shiftWithNurseAssigned = finalShiftsResults.find(
+          (shift) => shift.data?.id === queryshift.id,
+        );
+        return (
+          shiftWithNurseAssigned?.data ?? {
+            id: queryshift.id,
+            startDate: new Date(queryshift.startDate),
+            endDate: new Date(queryshift.endDate),
+            nurse: null,
+            qualification: queryshift.qualification,
+          }
+        );
+      })
     : [];
 
   return {
     isLoading: isShiftsLoading || isLoading,
     isError,
     error,
-    data: shifts,
+    data: shifts || [],
   };
 };
 
