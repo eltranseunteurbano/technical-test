@@ -165,27 +165,20 @@ func getShifts(w http.ResponseWriter, r *http.Request) {
 func updateShift(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	shiftId := vars["id"]
-	var nurseId string
-	var updatedShift Shift
 
 	reqBody, reqBodyError := io.ReadAll(r.Body)
 
 	if reqBodyError != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprintf(w, "Something get wrong")
+		return
 	}
-
-	json.Unmarshal(reqBody, &nurseId)
 
 	for i, shift := range shifts {
 		if shift.Id == shiftId {
-			// shifts = append(shifts[:i], shifts[i+1]...)
 
-			updatedShift.Id = shiftId
-			updatedShift.StartDate = shift.StartDate
-			updatedShift.EndDate = shift.EndDate
-			updatedShift.NurseId = nurseId
-			updatedShift.Qualification = shift.Qualification
+			json.Unmarshal(reqBody, &shift)
+			shifts[i] = shift
 
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
@@ -206,5 +199,6 @@ func main() {
 	router.HandleFunc("/shifts", getShifts).Methods("GET")
 	router.HandleFunc("/shift/{id}", updateShift).Methods("PATCH")
 
+	fmt.Println("Server listinening on port 3000")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }
